@@ -1,0 +1,1 @@
+# streamlit-preserve-zoom-component
