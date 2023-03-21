@@ -8,6 +8,7 @@
     "@types/react": "^17.0.2",
     "@types/react-dom": "^18.0.11",
     "@types/react-plotly.js": "^2.6.0",
+    "lodash.debounce": "^4.0.8",
     "plotly.js": "^2.19.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -37,5 +38,8 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "."
+  "homepage": ".",
+  "devDependencies": {
+    "@types/lodash.debounce": "^4.0.7"
+  }
 }

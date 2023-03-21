@@ -31,12 +31,18 @@ const PlotlyPreserveZoomComponent = (props: ComponentProps): any => {
       break;
   }
 
-  // const click_event = props.args.click_event;
-  // const select_event = props.args.select_event;
-  // const hover_event = props.args.hover_event;
-
   /** Click handler for plot. */
   const plotlyEventHandler = (eventData: any) => {
+    // If no event data, send only the current range to Streamlit
+    if (eventData === null) {
+      const range = state.layout.xaxis.range;
+      const clickedPointsDict = {
+        points: [],
+        selected_range: range
+      }
+      Streamlit.setComponentValue(clickedPointsDict);
+      return;
+    }
     // Build array of points to return
     var clickedPoints: Array<any> = [];
     eventData.points.forEach(function (arrayItem: any) {
@@ -48,13 +54,20 @@ const PlotlyPreserveZoomComponent = (props: ComponentProps): any => {
         pointIndex: arrayItem.pointIndex
       })
     });
+    const range = state.layout.xaxis.range;
+    // build dict to return
+    const clickedPointsDict = {
+      points: clickedPoints,
+      selected_range: range
+    }
     // Send event to Streamlit
-    Streamlit.setComponentValue(clickedPoints);
+    Streamlit.setComponentValue(clickedPointsDict);
   }
   // Preserve zoom etc. state
-  const [state, setState] = useState({data: [], layout: {}, frames: [], config: {}});
+  const [state, setState] = useState({data, layout, frames, config});
   
   Streamlit.setFrameHeight(override_height);
+    
   return (
     <Plot
       data={state.data}
@@ -66,14 +79,18 @@ const PlotlyPreserveZoomComponent = (props: ComponentProps): any => {
       onHover={hover_event ? plotlyEventHandler : function(){}}
       onInitialized={(
         figure: any,
-      ) => setState(
-        {
-          data: data,
-          layout: layout,
-          frames: frames,
-          config: config
+      ) => {
+          setState(
+          {
+            data: data,
+            layout: layout,
+            frames: frames,
+            config: config
+          }
+        )
+        plotlyEventHandler(null);
         }
-      )}
+      }
       onUpdate={(
         figure: any,
       ) => setState(
@@ -85,6 +102,9 @@ const PlotlyPreserveZoomComponent = (props: ComponentProps): any => {
         }
       )}
       style={{width: override_width, height: override_height}}
+      onAfterPlot={() => {
+        plotlyEventHandler(null);
+      }}
     />
   )
 }

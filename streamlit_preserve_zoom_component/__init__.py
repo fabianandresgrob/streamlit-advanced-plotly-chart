@@ -8,7 +8,7 @@ import plotly.utils
 # the component, and True when we're ready to package and distribute it.
 # (This is, of course, optional - there are innumerable ways to manage your
 # release process.)
-_RELEASE = True
+_RELEASE = False
 
 # Declare a Streamlit component. `declare_component` returns a function
 # that is used to create instances of the component. We're naming this
@@ -74,11 +74,15 @@ def preserveZoomPlotlyChart(
             https://plotly.com/javascript/plotlyjs-events/#event-data
         Format of dict:
             {
-                x: int (x value of point),
-                y: int (y value of point),
-                curveNumber: (index of curve),
-                pointNumber: (index of selected point),
-                pointIndex: (index of selected point)
+                points: list of dict:
+                    {
+                        x: int (x value of point),
+                        y: int (y value of point),
+                        curveNumber: (index of curve),
+                        pointNumber: (index of selected point),
+                        pointIndex: (index of selected point),
+                    }
+                selected_ranges: list: [min, max]
             }
     """
     # kwargs will be exposed to frontend in "args"
@@ -102,11 +106,17 @@ def preserveZoomPlotlyChart(
 if not _RELEASE:
     import streamlit as st
     import plotly.express as px
+    import numpy as np
 
     st.set_page_config(layout="wide")
 
     st.subheader("Plotly Line Chart")
-    fig = px.line(x=[0, 1, 2, 3], y=[0, 1, 2, 3])
-    # st.plotly_chart(fig, use_container_width=True)
+
+    time = np.arange(0, 100, 0.1)
+    amplitude = np.sin(time)
+
+    fig = px.line(x=time, y=amplitude)
+    fig.update_xaxes(rangeslider_visible=True, range=[0, 10])
+    
     clickedPoint = preserveZoomPlotlyChart(fig, event='click', key="line")
     st.write(f"Clicked Point: {clickedPoint}")
