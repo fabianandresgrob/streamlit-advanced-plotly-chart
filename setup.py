@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="streamlit-preserve-zoom-component",
-    version="0.0.1",
+    version="0.0.2",
     author="Fabian Grob",
     author_email="grobfab@gmail.com",
     description="Custom Streamlit component to preserve zoom level of plotly charts when getting event data from them.",
