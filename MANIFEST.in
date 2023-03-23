@@ -1,1 +1,1 @@
-recursive-include PlotlyPreserveZoomComponent/frontend/build *
+recursive-include streamlit_advanced_plotly_chart/frontend/build *

@@ -93,14 +93,19 @@ const PlotlyPreserveZoomComponent = (props: ComponentProps): any => {
       }
       onUpdate={(
         figure: any,
-      ) => setState(
-        {
-          data: figure.data,
-          layout: figure.layout,
-          frames: figure.frames,
-          config: figure.config
+      ) => {
+        console.log("onUpdate")
+        console.log(state.data)
+        setState(
+          {
+            data: figure.data,
+            layout: figure.layout,
+            frames: figure.frames,
+            config: figure.config
+          }
+        )
         }
-      )}
+      }
       style={{width: override_width, height: override_height}}
       onAfterPlot={() => {
         plotlyEventHandler(null);

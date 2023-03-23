@@ -1,14 +1,14 @@
 import setuptools
 
 setuptools.setup(
-    name="streamlit-preserve-zoom-component",
+    name="streamlit-advanced-plotly-chart",
     version="0.0.2",
     author="Fabian Grob",
     author_email="grobfab@gmail.com",
     description="Custom Streamlit component to preserve zoom level of plotly charts when getting event data from them.",
-    long_description="This is a custom Streamlit component to preserve zoom level of plotly charts when getting event data from them. It is based on the streamlit-plotly-events component by @null-jones. It changes the option to select the event to watch to a string.",
+    long_description=open("README.md").read(),
     long_description_content_type="text/plain",
-    url="https://github.com/fabianandresgrob/streamlit-preserve-zoom-component",
+    url="https://github.com/fabianandresgrob/streamlit-advanced-plotly-chart",
     packages=setuptools.find_packages(),
     include_package_data=True,
     classifiers=[],

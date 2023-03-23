@@ -23,7 +23,7 @@ _RELEASE = True
 
 if not _RELEASE:
     _component_func = components.declare_component(
-        "streamlit_preserve_zoom_component",
+        "streamlit_advanced_plotly_chart",
         # Pass `url` here to tell Streamlit that the component will be served
         # by the local dev server that you run via `npm run start`.
         # (This is useful while your component is in development.)
@@ -35,7 +35,7 @@ else:
     # build directory:
     parent_dir = os.path.dirname(os.path.abspath(__file__))
     build_dir = os.path.join(parent_dir, "frontend/build")
-    _component_func = components.declare_component("streamlit_preserve_zoom_component", path=build_dir)
+    _component_func = components.declare_component("streamlit_advanced_plotly_chart", path=build_dir)
 
 
 # Create a wrapper function for the component. This is an optional
@@ -47,8 +47,7 @@ def preserveZoomPlotlyChart(
     plot_fig,
     event="click",
     override_height=450,
-    override_width="100%",
-    key=None,
+    override_width="100%"
 ):
     """Create a new instance of "plotly_events".
     Parameters
@@ -91,9 +90,7 @@ def preserveZoomPlotlyChart(
         spec=spec,
         override_height=override_height,
         override_width=override_width,
-        key=key,
-        event=event,
-        default="[]"  # Default return empty JSON list
+        event=event
     )
 
     # Parse component_value since it's JSON and return to Streamlit
@@ -116,7 +113,9 @@ if not _RELEASE:
     amplitude = np.sin(time)
 
     fig = px.line(x=time, y=amplitude)
+    
     fig.update_xaxes(rangeslider_visible=True, range=[0, 10])
     
-    clickedPoint = preserveZoomPlotlyChart(fig, event='click', key="line")
+    clickedPoint = preserveZoomPlotlyChart(fig, event='click')
+
     st.write(f"Clicked Point: {clickedPoint}")
