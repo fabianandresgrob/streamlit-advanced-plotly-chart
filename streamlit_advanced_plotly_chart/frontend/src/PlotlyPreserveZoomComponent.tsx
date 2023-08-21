@@ -54,12 +54,16 @@ const PlotlyPreserveZoomComponent = (props: ComponentProps): any => {
         pointIndex: arrayItem.pointIndex
       })
     });
-    const range = state.layout.xaxis.range;
+    const range_x = state.layout.xaxis.range;
+    const range_y = state.layout.yaxis.range;
+
     // build dict to return
     const clickedPointsDict = {
       points: clickedPoints,
-      selected_range: range
-    }
+      selected_range_x: range_x,
+      selected_range_y: range_y
+  }
+
     // Send event to Streamlit
     Streamlit.setComponentValue(clickedPointsDict);
   }
