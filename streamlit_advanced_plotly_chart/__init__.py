@@ -81,7 +81,8 @@ def preserveZoomPlotlyChart(
                         pointNumber: (index of selected point),
                         pointIndex: (index of selected point),
                     }
-                selected_ranges: list: [min, max]
+                 selected_range_x: list [min_x, max_x],
+                 selected_range_y: list [min_y, max_y]
             }
     """
     # kwargs will be exposed to frontend in "args"
