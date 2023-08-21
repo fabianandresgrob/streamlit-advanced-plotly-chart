@@ -35,10 +35,12 @@ const PlotlyPreserveZoomComponent = (props: ComponentProps): any => {
   const plotlyEventHandler = (eventData: any) => {
     // If no event data, send only the current range to Streamlit
     if (eventData === null) {
-      const range = state.layout.xaxis.range;
+      const range_x = state.layout.xaxis.range;
+      const range_y = state.layout.yaxis.range;
       const clickedPointsDict = {
         points: [],
-        selected_range: range
+        selected_range_x: range_x,
+        selected_range_y: range_y
       }
       Streamlit.setComponentValue(clickedPointsDict);
       return;
