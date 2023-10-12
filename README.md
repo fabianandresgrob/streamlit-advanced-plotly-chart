@@ -1,5 +1,5 @@
 # streamlit-advanced-plotly-chart
-This is a streamlit custom component to preserve the zoom level of a plotly chart when getting event data from it. It also returns the range of the x-axis, which is useful for zooming in on a specific part of the chart and using a rangeslider.
+This is a streamlit custom component to preserve the zoom level of a plotly chart when getting event data from it. It also returns the range of the x- and y-axis, which is useful for zooming in on a specific part of the chart and using a rangeslider.
 
 It is based on the [streamlit-plotly-events](https://github.com/null-jones/streamlit-plotly-events/tree/master) component.
 
